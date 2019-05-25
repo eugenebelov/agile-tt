@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
 import { TextService } from '../text-service/text.service';
 import { Format } from '../control-panel/control-panel.component';
-
-import * as Rangy from 'rangy';
 
 @Component({
   selector: 'app-file',
@@ -11,6 +9,8 @@ import * as Rangy from 'rangy';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileComponent implements OnInit {
+  @ViewChild('editor') editor: ViewContainerRef;
+
   text$: Promise<string>;
 
   constructor(private textService: TextService) {
@@ -23,6 +23,6 @@ export class FileComponent implements OnInit {
   }
 
   private onFormatChange(format: Format): void {
-    console.log('TEXT', format, Rangy);
+    document.execCommand(format, false);
   }
 }
