@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TextService } from '../text-service/text.service';
 import { Format } from '../control-panel/control-panel.component';
 
+import * as Rangy from 'rangy';
+
 @Component({
   selector: 'app-file',
   templateUrl: './file.component.html',
@@ -20,11 +22,7 @@ export class FileComponent implements OnInit {
     this.textService.onFormatChange$.subscribe(this.onFormatChange.bind(this));
   }
 
-  onInput(event) {
-    console.log(event);
-  }
-
   private onFormatChange(format: Format): void {
-    console.log('TEXT', format);
+    console.log('TEXT', format, Rangy);
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Format } from './control-panel/control-panel.component';
+import { TextService } from './text-service/text.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,9 @@ import { Format } from './control-panel/control-panel.component';
 export class AppComponent {
   title = 'Simple Text Editor';
 
+  constructor(private textService: TextService) {}
+
   onFormatChange(event: Format): void {
-    console.log('onFormatChange', event);
+    this.textService.onFormatChange$.next(event);
   }
 }

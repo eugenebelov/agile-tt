@@ -18,7 +18,6 @@ export class ControlPanelComponent {
   @Output() formatChange: EventEmitter<Format> = new EventEmitter();
 
   onFormatChange(format: Format): void {
-    console.log(format);
     this.formatChange.emit(format);
   }
 }
