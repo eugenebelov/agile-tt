@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
+
+export type Format = 'bold' | 'italic' | 'underline';
+
+export enum FORMATS {
+  BOLD = 'bold',
+  ITALIC = 'italic',
+  UNDERLINE = 'underline',
+}
 
 @Component({
   selector: 'app-control-panel',
@@ -7,4 +15,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlPanelComponent {
+  @Output() formatChange: EventEmitter<Format> = new EventEmitter();
+
+  onFormatChange(format: Format): void {
+    console.log(format);
+    this.formatChange.emit(format);
+  }
 }

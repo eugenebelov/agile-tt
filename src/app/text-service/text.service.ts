@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class TextService {
+  onFormatChange$: Subject<any> = new Subject();
+
   getMockText() {
     return new Promise<string>(function (resolve) {
       resolve('A year ago I was in the audience at a gathering of designers in San Francisco. ' +
@@ -11,4 +14,5 @@ export class TextService {
         'that modern design problems were very complex. And we ought to need a license to solve them.');
     });
   }
+
 }

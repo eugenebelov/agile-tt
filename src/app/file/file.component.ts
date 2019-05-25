@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TextService } from '../text-service/text.service';
+import { Format } from '../control-panel/control-panel.component';
 
 @Component({
   selector: 'app-file',
@@ -15,5 +16,15 @@ export class FileComponent implements OnInit {
 
   ngOnInit() {
     this.text$ = this.textService.getMockText();
+
+    this.textService.onFormatChange$.subscribe(this.onFormatChange.bind(this));
+  }
+
+  onInput(event) {
+    console.log(event);
+  }
+
+  private onFormatChange(format: Format): void {
+    console.log('TEXT', format);
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Format } from './control-panel/control-panel.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Simple Text Editor';
+
+  onFormatChange(event: Format): void {
+    console.log('onFormatChange', event);
+  }
 }
