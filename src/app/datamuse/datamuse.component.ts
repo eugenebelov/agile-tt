@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { DatamuseService } from './datamuse.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-datamuse',
@@ -8,15 +10,20 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, SimpleCha
 })
 export class DatamuseComponent implements OnInit, OnChanges {
 
-  @Input() synonym: string;
+  @Input() synonym: object;
+  synonims$;
 
-  constructor() { }
+  constructor(private datamuse: DatamuseService) { }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+    if (changes.synonym.currentValue !== '') {
+      this.synonims$ = this.datamuse.getSynonym(changes.synonym.currentValue).pipe(
+        map(data => data.map(item => item.word))
+      );
+    }
   }
 
 }

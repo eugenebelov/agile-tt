@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FileComponent } from './file/file.component';
 import { ControlPanelComponent } from './control-panel/control-panel.component';
@@ -20,7 +21,8 @@ import { DatamuseComponent } from './datamuse/datamuse.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     TextService

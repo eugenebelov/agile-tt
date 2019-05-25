@@ -1,3 +1,7 @@
 <p>
-  datamuse works!
+  Synonims:
 </p>
+
+<div *ngFor="let word of synonims$ | async">
+  <a href='#' rel="nofollow">{{word}}</a>
+</div>

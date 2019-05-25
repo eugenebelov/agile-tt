@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { TextService } from '../text-service/text.service';
 import { Format } from '../control-panel/control-panel.component';
 import { fromEvent } from 'rxjs';
-import { takeLast, last, delay } from 'rxjs/operators';
-import { HttpClient } from 'selenium-webdriver/http';
+import { delay, first, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-file',
@@ -17,7 +16,7 @@ export class FileComponent implements OnInit {
   text$: Promise<string>;
   selectedWord: string;
 
-  constructor(private textService: TextService, private http: HttpClient) {
+  constructor(private textService: TextService, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -25,15 +24,15 @@ export class FileComponent implements OnInit {
 
     this.textService.onFormatChange$.subscribe(this.onFormatChange.bind(this));
 
-    fromEvent(document, 'selectstart').pipe(
-      delay(500)
+    fromEvent(document, 'selectionchange').pipe(
     ).subscribe( word => {
-      console.log(document.getSelection(), 'start');
+      const selection = document.getSelection().toString();
+      if (selection !== '') {
+        this.selectedWord = selection;
+        this.cdr.markForCheck();
+        console.log(this.selectedWord);
+      }
     });
-  }
-
-  onDoubleClick() {
-    console.log(window.getSelection().toString());
   }
 
   private onFormatChange(format: Format): void {
